@@ -23,6 +23,18 @@ h1 {
   margin: 20px 0;
 }
 
+.navBar {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: flex-end;
+}
+
+.navBarItem {
+  margin: 10px 20px;
+  color: red;
+}
+
 .taskListing {
   height: 450px;
   width: 730px;
@@ -110,7 +122,7 @@ h1 {
 }
 
 .addForm {
-  width: 500px;
+  width: 255px;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -119,30 +131,43 @@ h1 {
 }
 
 input {
+  font-size: 14px;
+  color: #26a69a;
+  border: 1px solid #9e9e9e;
   height: 30.8px;
-  font-size: 16px;
   padding: 5px;
-  margin-right: 5px;
+}
+
+::placeholder {
+  color: #424242;
 }
 
 .inpButContainer {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   margin: 10px 0;
 }
 
-#submit, #updateFo, #cancel {
+#submit, #updateFo, #signup, #cancelSignLog {
   font-size: 14px;
-  background-color: #26a69a;
-  color: white;
+  background-color: white;
+  color: #26a69a;
   border: 2px solid #26a69a;
   padding: 5px 20px;
   transition-duration: 0.5s;
 }
 
-#submit:hover, #updateFo:hover, #cancel:hover {
-  background-color: white;
-  color: black;
+#submit:hover, #updateFo:hover, #signup:hover, #cancelSignLog:hover {
+  background-color: #26a69a;
+  color: white;
+}
+
+.disabledButton {
+  font-size: 14px;
+  background-color: #9e9e9e;
+  color: white;
+  border: 2px solid #9e9e9e;
+  padding: 5px 20px;
 }
 
 #save, #cancel {
@@ -162,4 +187,88 @@ input {
   color: white;
   border: 2px solid #26a69a;
 }
+
+/* ---------------------------------------- */
+/* Container for signup- and login-elements */
+
+.signLogcontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.signLogFormContainer{
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 400px;
+  border: 1px solid #9e9e9e;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.signLogHeader {
+  font-size: 24px;
+  color: #26a69a;
+  font-weight: bold;
+}
+
+.signLogInputContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.signLogInput {
+  margin-top: 15px;
+}
+
+.signLogErrorContainer {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.signLogErrorText {
+  color: red;
+}
+
+.signLogButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin-top: 40px;
+}
+
+.signLogErrorMsgContainer {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 400px;
+  margin-top: 10px;
+
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+/* Container for greeting */
+
+.greetingContainer {
+  margin: 10px 0 30px 0;
+}
+/* ---------------------------------------- */
+
+/* ---------------------------------------- */
+/* Logout */
+.logoutText {
+  margin-top:  40px;
+}
+
+
 

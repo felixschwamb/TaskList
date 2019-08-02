@@ -50,8 +50,8 @@ export class TaskItemContent extends Component {
         </div>
       </div>
     );
-  }
-}
+  };
+};
 
 export default TaskItemContent
 
