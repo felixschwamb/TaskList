@@ -49,7 +49,10 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
-})
+}, { 
+    timestamps: true            
+}
+)
 
 // creation of a virtual property 
 userSchema.virtual('tasks', {
@@ -111,11 +114,7 @@ userSchema.statics.checkPassword = async (email, oldPassword) => {
     if (!user) {
         throw new Error('Unable to change password')
     }
-    
-    // console.log('oldPassword: ', oldPassword)
-    // console.log('user.password: ', user.password)
 
-    
     const isMatch = await bcrypt.compare(oldPassword, user.password)
     
     if (!isMatch) {

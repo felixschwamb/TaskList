@@ -190,6 +190,10 @@ class App extends React.Component {
     // }
   }
 
+  cancelSignLog = () => {
+    this.setState({ errors: [] });
+  }
+  
   cancelPasswordUpdate = () => {
     this.setState({ errors: [] });
   }
@@ -200,7 +204,8 @@ class App extends React.Component {
   /* ----------------------------------------------------- */
   /* methods regarding tasks */
 
-  loadItems = async () => {
+  loadItems = async (numberOfItems) => {
+    const url = '/tasks?limit=' + numberOfItems + ''
     const bearer = 'Bearer ' + this.state.token
     const options = {
       method: "GET",
@@ -210,7 +215,9 @@ class App extends React.Component {
       }
     };
 
-    let response = await fetch("/tasks", options);
+    // let response = await fetch("/tasks", options);
+    let response = await fetch(url, options);
+
     console.log("get-request: ", response);
     let json = await response.json();
     const loadedTasks = json;
@@ -378,6 +385,7 @@ class App extends React.Component {
                 registerUser={this.registerUser}
                 token={this.state.token}                
                 errors={this.state.errors}
+                cancelSignLog={this.cancelSignLog}
                 />)}
               // component={Signup} 
               />
@@ -386,6 +394,7 @@ class App extends React.Component {
                 loginUser={this.loginUser}
                 token={this.state.token}                
                 errors={this.state.errors}
+                cancelSignLog={this.cancelSignLog}
                 />)}
             // component={Login} 
             />

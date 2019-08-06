@@ -69,6 +69,7 @@ export class Signup extends Component {
 
     onCancel = () => {
         this.props.history.push('/')
+        this.props.cancelSignLog()
     }
 
 
