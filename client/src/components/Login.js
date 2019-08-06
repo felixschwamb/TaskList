@@ -42,9 +42,9 @@ export class Signup extends Component {
         if (this.state.inputAvail) {
         
         await this.props.loginUser(this.state.email, this.state.password)
-        // with asyc/await home is only loaded registration of user is done (not necessarily a successfull registration yet)
+        // with asyc/await home is only loaded when registration of user is done (not necessarily a successfull registration yet)
 
-            if (this.props.succReg) {
+            if (this.props.token) {
                 this.props.history.push('/home')
             }
         } 

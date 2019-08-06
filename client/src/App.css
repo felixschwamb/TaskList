@@ -36,7 +36,7 @@ h1 {
 }
 
 .taskListing {
-  height: 450px;
+  height: 390px;
   width: 730px;
   overflow: auto;
 }
@@ -162,6 +162,20 @@ input {
   color: white;
 }
 
+.btn {
+  font-size: 14px;
+  background-color: white;
+  color: #26a69a;
+  border: 2px solid #26a69a;
+  padding: 5px 20px;
+  transition-duration: 0.5s;
+}
+
+.btn:hover {
+  background-color: #26a69a;
+  color: white;
+}
+
 .disabledButton {
   font-size: 14px;
   background-color: #9e9e9e;
@@ -256,6 +270,7 @@ input {
 }
 /* ---------------------------------------- */
 
+
 /* ---------------------------------------- */
 /* Container for greeting */
 
@@ -264,10 +279,97 @@ input {
 }
 /* ---------------------------------------- */
 
+
 /* ---------------------------------------- */
 /* Logout */
 .logoutText {
   margin-top:  40px;
+}
+/* ---------------------------------------- */
+
+
+/* ---------------------------------------- */
+/* Profile */
+.profileInfoContainer {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #9e9e9e;
+  border-radius: 5px;
+}
+
+.profileIconContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.profileIconSavCanContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+#profileCheck, #profileCross {
+  margin-left: 20px;
+}
+
+.profileIcon {
+  color: #9e9e9e;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.profileIcon:hover {
+  color: #26a69a;
+}
+
+.profileInfoItemContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px 0;
+  height: 35px;
+}
+
+.profileInfoItemName{
+  display: flex;
+  align-items: center;
+  width: 100px;
+}
+
+.passwordChangeCont{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.passwordChangeInpCont {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+
+}
+
+.passwChangeBtnSucMsg {
+  display: flex;
+  flex-direction: row;
+}
+
+.passwChangeSucMsgCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.passwChangeSucMsgIcon {
+  color: #26a69a
+}
+
+.passwChangeSucMsgText{
+  color: #26a69a;
+  font-size: 12px;
+  margin-top: 3px;
 }
 
 

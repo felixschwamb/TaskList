@@ -76,26 +76,32 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 })
 
 
-// endpoint to fetch the user profile
-router.get('/users/me', auth, async (req, res) => {
-    res.send(req.user)
-})
+// // endpoint to fetch the user profile
+//     // currently not needed, user information is loaded, when 'Home' is loaded
 
-// endpoint for fetching all intems
-router.get('/users', auth, async (req, res) => {
-    try {
-        const users = await User.find({})
-        res.send(users)
-    } catch(e) {
-        res.status(500).send()
-    }
-})
+// router.get('/users/me', auth, async (req, res) => {
+//     res.send(req.user)
+// })
+
+//--------
+
+// // endpoint for fetching all intems
+//     // currently not needed, there is no page that shows all users
+
+// router.get('/users', auth, async (req, res) => {
+//     try {
+//         const users = await User.find({})
+//         res.send(users)
+//     } catch(e) {
+//         res.status(500).send()
+//     }
+// })
 
 
-// endpoint for updating an item by ID
-router.patch('/users/me', auth, async (req, res) => {                                                                      
+// endpoint for updating the password
+router.patch('/users/me/password', auth, async (req, res) => {                                                                      
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password', 'age']
+    const allowedUpdates = ['email', 'oldPassword', 'password']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -103,11 +109,33 @@ router.patch('/users/me', auth, async (req, res) => {
     }    
 
 try {
-        updates.forEach((update) => req.user[update] = req.body[update])
+    await User.checkPassword(req.body.email, req.body.oldPassword)
+    updates.forEach((update) => req.user[update] = req.body[update])
         await req.user.save()
         res.send(req.user)
     } catch(e) {
-        res.status(400).send(e)
+        const eMsg = JSON.stringify(e.message)
+        res.status(400).send(eMsg)
+    }
+})
+
+// endpoint for updating name and/or email
+router.patch('/users/me/profile', auth, async (req, res) => {                                                                      
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['name', 'email']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' })
+    }    
+
+try {
+    updates.forEach((update) => req.user[update] = req.body[update])
+        await req.user.save()
+        res.send(req.user)
+    } catch(e) {
+        const eMsg = JSON.stringify(e.message)
+        res.status(400).send(eMsg)
     }
 })
 

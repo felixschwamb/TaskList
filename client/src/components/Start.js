@@ -8,7 +8,7 @@ export class Start extends Component {
             <div>
                 <Header />
                 <div>
-                    <p>Start</p>
+                    <p>Register or login if you want to use TaskList.</p>
                 </div>
             </div>
         )

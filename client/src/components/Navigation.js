@@ -4,21 +4,69 @@ import { NavLink } from 'react-router-dom';
 
 export class Navigation extends Component {
     render() {
-        return (
-            <div>
-            <ul className="navBar">
+
+        let homeLink
+        if (!this.props.token) {
+            homeLink = (
                 <li className="navBarItem">
-                    <NavLink to="/" exact activeStyle={{ color: "#26a69a" }}>Start</NavLink>
+                    <NavLink to="/" exact activeStyle={{ color: "#26a69a" }}>TaskList</NavLink>
                 </li>
+            )
+        } else {
+            homeLink = (
+                <li className="navBarItem">
+                    <NavLink to="/home" activeStyle={{ color: "#26a69a" }}>TaskList</NavLink>
+                </li>
+            )
+        }
+
+        let profileLink
+        if (this.props.token) {
+            profileLink = (
+                <li className="navBarItem">
+                    <NavLink to="/profile" activeStyle={{ color: "#26a69a" }}>Profile</NavLink>
+                </li>
+            )
+        }
+
+        let registerLink
+        if (!this.props.token) {
+            registerLink = (
                 <li className="navBarItem">
                     <NavLink to="/signup" activeStyle={{ color: "#26a69a" }}>Register</NavLink>
                 </li>
+            )
+        }
+
+        let loginLink
+        if (!this.props.token) {
+            loginLink = (
                 <li className="navBarItem">
                     <NavLink to="/login" activeStyle={{ color: "#26a69a" }}>Login</NavLink>
                 </li>
+            )
+        }
+
+        let logoutLink
+        if (this.props.token) {
+            logoutLink = (
                 <li className="navBarItem">
                     <NavLink to="/logout" activeStyle={{ color: "#26a69a" }}>Logout</NavLink>
                 </li>
+            )
+        }
+
+        return (
+            <div>
+            <ul className="navBar">
+                {/* <li className="navBarItem">
+                    <NavLink to="/" exact activeStyle={{ color: "#26a69a" }}>TaskList</NavLink>
+                </li> */}
+                {homeLink}
+                {profileLink}
+                {registerLink}
+                {loginLink}
+                {logoutLink}
             </ul>
                 
             </div>

@@ -19,7 +19,7 @@ export class AddTask extends Component {
         this.setState({
             [e.target.name]: e.target.value
             // title: e.target.value
-        })}
+    })}
 
     render() {
         return (

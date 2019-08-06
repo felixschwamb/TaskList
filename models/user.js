@@ -69,10 +69,10 @@ userSchema.methods.toJSON = function () {
     const userObject = user.toObject()
         // toObject() provided by Mongoogse, gives just raw user data
 
-    // delete userObject.password
-    // delete userObject.tokens
+    delete userObject.password
+    delete userObject.tokens
     
-        return userObject
+    return userObject
 }
 
 
@@ -101,6 +101,30 @@ userSchema.statics.findByCredentials = async (email, password) => {
     }
 
     return user
+}
+
+/*During password change. Check if entered old password is correct password*/
+userSchema.statics.checkPassword = async (email, oldPassword) => {
+
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        throw new Error('Unable to change password')
+    }
+    
+    // console.log('oldPassword: ', oldPassword)
+    // console.log('user.password: ', user.password)
+
+    
+    const isMatch = await bcrypt.compare(oldPassword, user.password)
+    
+    if (!isMatch) {
+        throw new Error('Unable to change password')
+    }
+
+    return console.log('Old password correct')
+    // return user
+
 }
 
 // Hash the plain text password before saving - middleware

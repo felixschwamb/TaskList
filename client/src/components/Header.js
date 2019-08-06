@@ -4,7 +4,7 @@ export class Header extends Component {
     render() {
         return (
             <header>
-                <h1>Task List</h1>
+                <h1>TaskList</h1>
             </header>
         )
     }

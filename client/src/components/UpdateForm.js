@@ -24,7 +24,7 @@ export class UpdateForm extends Component {
         this.setState({
             [e.target.name]: e.target.value
             // title: e.target.value
-        })}
+    })}
 
     onChangeCheck = () => {
       this.setState({ completed: false})

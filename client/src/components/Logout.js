@@ -21,33 +21,12 @@ export class Logout extends Component {
                 <div className="signLogcontainer">
                     <div 
                         className="signLogFormContainer" 
-                        // onSubmit={this.onSubmit}
                         >
 
                         <p className="signLogHeader">Logout</p>
                         <p className="logoutText">Do you want to logout?</p>
 
-                        {/* <div className="signLogInputContainer">
-                            <input
-                            className="signLogInput"
-                            type="text"
-                            name="email"
-                            placeholder="email*"
-                            value={this.state.email}
-                            onChange={this.onChange}
-                            />
-                            <input
-                            className="signLogInput"
-                            type="password"
-                            name="password"
-                            placeholder="password* (more than six characters)"
-                            value={this.state.password}
-                            onChange={this.onChange}
-                            />
-                        </div> */}
-
                         <div className="signLogButtonContainer">
-                            {/* {signUpButton} */}
                             <button 
                                 id="cancelSignLog" 
                                 onClick={this.onLogout}
