@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 
-import Header from './Header';
 import ProfileUpdateForm from './ProfileUpdateForm';
 import ErrorMessage from './ErrorMessage';
 
@@ -251,7 +250,6 @@ export class Profile extends Component {
         
         return (
             <div>
-                <Header />
                 <div>
                     <p>Your profile information:</p>
                     

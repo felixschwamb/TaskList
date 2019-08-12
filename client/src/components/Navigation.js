@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import Header from './Header';
+
 
 
 export class Navigation extends Component {
@@ -57,17 +59,19 @@ export class Navigation extends Component {
         }
 
         return (
-            <div>
-            <ul className="navBar">
-                {/* <li className="navBarItem">
-                    <NavLink to="/" exact activeStyle={{ color: "#26a69a" }}>TaskList</NavLink>
-                </li> */}
-                {homeLink}
-                {profileLink}
-                {registerLink}
-                {loginLink}
-                {logoutLink}
-            </ul>
+            <div className="navBar">
+                <Header />
+
+                <ul className="navBarList">
+                    {/* <li className="navBarItem">
+                        <NavLink to="/" exact activeStyle={{ color: "#26a69a" }}>TaskList</NavLink>
+                    </li> */}
+                    {homeLink}
+                    {profileLink}
+                    {registerLink}
+                    {loginLink}
+                    {logoutLink}
+                </ul>
                 
             </div>
         )

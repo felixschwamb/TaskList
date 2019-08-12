@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Header from './Header';
 import ErrorMessage from './ErrorMessage';
 
 
@@ -99,7 +98,6 @@ export class Signup extends Component {
 
         return (
             <div>
-                <Header />
                 <div className="signLogcontainer">
                     <form 
                         className="signLogFormContainer" 

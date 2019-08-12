@@ -16,6 +16,9 @@ class App extends React.Component {
     super();
     this.state = {
       tasks: [],
+      totalNumTasks: '',
+      numCompletedTasks: '', 
+      numUncompletedTasks: '',
       user: {},
       token: '',
       errors: [],
@@ -204,8 +207,8 @@ class App extends React.Component {
   /* ----------------------------------------------------- */
   /* methods regarding tasks */
 
-  loadItems = async (numberOfItems) => {
-    const url = '/tasks?limit=' + numberOfItems + ''
+  loadItems = async (numberOfItems, completedFilter) => {
+    const url = '/tasks?limit=' + numberOfItems + '&completed=' + completedFilter + ''
     const bearer = 'Bearer ' + this.state.token
     const options = {
       method: "GET",
@@ -220,9 +223,12 @@ class App extends React.Component {
 
     console.log("get-request: ", response);
     let json = await response.json();
-    const loadedTasks = json;
-    this.setState({ tasks: loadedTasks }, () =>
-      console.log("Data loaded from database: ", this.state.tasks)
+    const totalNumTasks = json.numTasks
+    const numCompletedTasks = json.numTasksComp
+    const numUncompletedTasks = json.numTasksUncomp
+    const tasks = json.tasks;
+    this.setState({ tasks, totalNumTasks, numCompletedTasks, numUncompletedTasks }, () =>
+      console.log("Data loaded from database: ", this.state.tasks, 'and: ', this.state.totalNumTasks)
     );
   };
 
@@ -250,7 +256,10 @@ class App extends React.Component {
       owner: this.state.user._id
     };
 
-    this.setState({ tasks: [...this.state.tasks, newTask] }, () => {
+    const totalNumTasks = this.state.totalNumTasks + 1
+    const numUncompletedTasks = this.state.numUncompletedTasks + 1
+
+    this.setState({ tasks: [...this.state.tasks, newTask], totalNumTasks, numUncompletedTasks }, () => {
       console.log("total tasks: ", this.state.tasks);
     });
   };
@@ -292,8 +301,12 @@ class App extends React.Component {
       const title = updTasks[taskIndex].title
       const completed = updTasks[taskIndex].completed
       this.updateTask(id, title, completed)
+
+      let numCompletedTasks = this.state.numCompletedTasks + 1
+      let numUncompletedTasks = this.state.numUncompletedTasks -1
+
   
-      this.setState({ tasks: updTasks }, () =>
+      this.setState({ tasks: updTasks, numCompletedTasks, numUncompletedTasks }, () =>
         console.log("new tasks after check: ", updTasks)
       );
     };
@@ -314,8 +327,23 @@ class App extends React.Component {
     });
   
     this.updateTask(id, title, completed)
+
+    // Updating of counter (comp, uncomp) on client-side
+    let prevCompState = this.state.tasks[taskIndex].completed
+    let numCompletedTasks = this.state.numCompletedTasks
+    let numUncompletedTasks = this.state.numUncompletedTasks
+
+    if (completed !== prevCompState) {
+      if (completed === true) {
+        numCompletedTasks = numCompletedTasks +1
+        numUncompletedTasks = numUncompletedTasks -1
+      } else {
+        numCompletedTasks = numCompletedTasks -1
+        numUncompletedTasks = numUncompletedTasks +1
+      }
+    }
   
-    this.setState({ tasks: updTasks }, () =>
+    this.setState({ tasks: updTasks, numCompletedTasks, numUncompletedTasks}, () =>
       console.log("new tasks after upd: ", updTasks)
     );
   };
@@ -334,8 +362,20 @@ class App extends React.Component {
     let response = await fetch("/api/delete-task/" + id + "", options);
     console.log("delete-request: ", response);
 
+    // Updating on client-side (counter and task-array), when a task is deleted
+      // Updating of counter (total, comp, uncomp) on client-side
+    const totalNumTasks = this.state.totalNumTasks - 1
+
+    let delTask = this.state.tasks.filter(task => task._id === id)
+    let compStatus = delTask[0].completed
+    let numCompletedTasks = this.state.numCompletedTasks
+    let numUncompletedTasks = this.state.numUncompletedTasks
+
+    compStatus === true ? numCompletedTasks = numCompletedTasks -1 : numUncompletedTasks = numUncompletedTasks -1
+
     this.setState({
-      tasks: [...this.state.tasks.filter(task => task._id !== id)]
+      tasks: [...this.state.tasks.filter(task => task._id !== id)],
+      totalNumTasks, numCompletedTasks, numUncompletedTasks
     });
   };
 
@@ -360,6 +400,9 @@ class App extends React.Component {
               render={(routeProps) => (<Home {...routeProps} 
                 loadItems={this.loadItems}
                 tasks={this.state.tasks}
+                totalNumTasks={this.state.totalNumTasks}
+                numCompletedTasks={this.state.numCompletedTasks} 
+                numUncompletedTasks={this.state.numUncompletedTasks}
                 addTask={this.addTask}
                 updateTask={this.updateTask}
                 checkTask={this.checkTask}

@@ -18,22 +18,41 @@ const router = new express.Router()
 router.get('/tasks', auth, async (req, res) => {
 
   try {
+
+    // count number of documents in collection
+      // estimatedDocumentCount() has no options and gives back all documents without any filter option
+      // const numTasks = await Task.estimatedDocumentCount()
+    const numTasks = await Task.countDocuments( {owner: req.user._id} )
+      // countDocuments() gives back only the documenents of the user, it offers a filter option
+
+    const numTasksComp = await Task.countDocuments( {owner: req.user._id, completed: true} )
+    const numTasksUncomp = await Task.countDocuments( {owner: req.user._id, completed: false} )
+
+    const match = {}
+
+    if (req.query.completed) {
+        match.completed = req.query.completed === 'true'
+    }
+
       // option 1:
       // const tasks = await Task.find({ owner: req.user._id })
       // res.send(tasks)   
 
-      // option 2:
-      await req.user.populate({
-        path: 'tasks',
-        // match,
-        options: {
-            limit: parseInt(req.query.limit),              
-            // skip: parseInt(req.query.skip),
-            // sort
-        }
+    // option 2:
+    await req.user.populate({
+      path: 'tasks',
+      match,
+      options: {
+        limit: parseInt(req.query.limit),              
+        // skip: parseInt(req.query.skip),
+        // sort
+      }
     }).execPopulate()
       // await req.user.populate('tasks').execPopulate()
-      res.send(req.user.tasks)
+      const tasks = req.user.tasks 
+      res.send({ tasks, numTasks, numTasksComp, numTasksUncomp })
+
+      // res.send(req.user.tasks)
                     
   } catch(e) {
       res.status(500).send()

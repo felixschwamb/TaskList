@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './Header';
 import Greeting from './Greeting';
+import FilterBar from './FilterBar';
 import TaskList from './TaskList';
 import PaginationBar from './PaginationBar';
 import AddTask from './AddTask';
@@ -10,25 +10,47 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      numberOfItems: 5
+      numberOfItems: 5,
+      filterCompleted: ''
     };
   }
 
   componentDidMount = () => {
-    this.props.loadItems(this.state.numberOfItems);
+    this.props.loadItems(this.state.numberOfItems, this.state.filterCompleted);
   };
 
+
+  filterComp = (filter) => {
+      let numberOfItems = this.state.numberOfItems
+      this.props.loadItems(numberOfItems, filter)
+      if (filter === true) {
+        this.setState({ filterCompleted: true })
+      } else if (filter === false) {
+        this.setState({ filterCompleted: false })
+      } else {
+        this.setState({ filterCompleted: '' })
+      }
+  }
+
+
   pagOnClick = (numberOfItems) => {
-    this.props.loadItems(numberOfItems)
+    let completed = this.state.filterCompleted
+    this.props.loadItems(numberOfItems, completed)
     this.setState({ numberOfItems })
   }
 
   render() {
     return (
-      <div className="App">
-        <Header />
+      <div className="pageContentContainer">
         <Greeting
           userName={this.props.user.name}  
+        />
+        <FilterBar
+          totalNumTasks={this.props.totalNumTasks}
+          numCompletedTasks={this.props.numCompletedTasks} 
+          numUncompletedTasks={this.props.numUncompletedTasks}
+          filterComp={this.filterComp}
+          filterCompleted={this.state.filterCompleted}
         />
         <div className="taskListing">
           <TaskList
