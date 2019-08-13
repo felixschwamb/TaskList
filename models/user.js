@@ -17,11 +17,11 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         // commented out to facilitate development process
-        // validate(value) {
-        //     if (!validator.isEmail(value)) {
-        //         throw new Error('Email is invalid')
-        //     }
-        // }
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error('Email is invalid')
+            }
+        }
     },
     age: {
         type: Number,
@@ -37,13 +37,13 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         // commented out to facilitate development process
-        // validate(value) {
-        //     if (value.length <= 6) {
-        //         throw new Error('Password must have more than six characters!')
-        //     } else if (value.toLowerCase().includes('password')) {
-        //         throw new Error('Password cannot contain the word password')
-        //     }
-        // }
+        validate(value) {
+            if (value.length <= 6) {
+                throw new Error('Password must have more than six characters!')
+            } else if (value.toLowerCase().includes('password')) {
+                throw new Error('Password cannot contain the word password')
+            }
+        }
     },
     tokens: [{
         token: {

@@ -14,10 +14,31 @@ export class Signup extends Component {
         }
       }
 
+    // Prevent that error message is shown when Login-screen is loaded
+    // if this.props.erros contains errors these are cleared because the login process starts new  
+    componentDidMount = () => {
+        if (this.props.errors !== '') {
+            this.props.clearErrorSignLog()
+            console.log('errors are cleared')
+        } 
+    };
+
+    // Update of component, when this.props.errors changes
+    // due to this update the error message is shown
+    componentDidUpdate = (prevProps) => {
+        if (this.props.errors !== prevProps.errors) {
+            console.log('there was a change! Current state: ', this.props.errors)
+        }
+    }
+
     onChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         }, () => this.formValidation())
+
+        // errors are cleared as soon as user changes input
+        this.props.clearErrorSignLog()
+
         // }, () => this.validateUser(this.state.name, this.state.email, this.state.password))
             // alternative solution when onChange a http request is sent to the server to validate the input
     }
@@ -80,6 +101,7 @@ export class Signup extends Component {
     // Show error message if email invalid and password not at least six characters
         let errorMessage
         if (this.props.errors.length > 0) {
+
             errorMessage = (
                 this.props.errors.map(error =>
                     <ErrorMessage

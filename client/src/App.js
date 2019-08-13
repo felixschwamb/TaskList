@@ -21,7 +21,7 @@ class App extends React.Component {
       numUncompletedTasks: '',
       user: {},
       token: '',
-      errors: [],
+      errors: '',
     }
   }
 
@@ -61,7 +61,7 @@ class App extends React.Component {
       
       // if no error occured, save user in state and save flag that registration was succesfull in state
     } else {
-        this.setState({ user: registeredUser.user, token: registeredUser.token, errors: [] });
+        this.setState({ user: registeredUser.user, token: registeredUser.token, errors: '' });
       }
   };
 
@@ -87,9 +87,19 @@ class App extends React.Component {
       
       // if no error occured, save user in state and save flag that registration/login was succesfull in state
     } else {
-        this.setState({ user: login.user, token: login.token, errors: [] });
+        this.setState({ user: login.user, token: login.token, errors: '' });
       }
   };
+
+
+  // function to clear errors when user modifies the input field or changes pages
+  // function is only executed when there actually is an error and errors is no empty string
+  clearErrorSignLog = () => {
+    if (this.state.errors !== '') {
+      this.setState({ errors: '' })
+      console.log('error is no empty string!', this.state.errors)
+    } 
+  }
 
 
   logoutUser = async () => {
@@ -153,7 +163,7 @@ class App extends React.Component {
       let errors = [{id: 0, error: 'Password must have more than six characters!'}]
       this.setState({ errors: errors })
     } else {
-      this.setState({ errors: [] });
+      this.setState({ errors: '' });
     }
   }
 
@@ -194,11 +204,11 @@ class App extends React.Component {
   }
 
   cancelSignLog = () => {
-    this.setState({ errors: [] });
+    this.setState({ errors: '' });
   }
   
   cancelPasswordUpdate = () => {
-    this.setState({ errors: [] });
+    this.setState({ errors: '' });
   }
 
   /* ----------------------------------------------------- */
@@ -419,6 +429,7 @@ class App extends React.Component {
                 updateProfile={this.updateProfile}
                 updatePassword={this.updatePassword}
                 errors={this.state.errors}
+                clearErrorSignLog={this.clearErrorSignLog}
                 cancelPasswordUpdate={this.cancelPasswordUpdate}
                 />)}
             // component={Profile} 
@@ -428,6 +439,7 @@ class App extends React.Component {
                 registerUser={this.registerUser}
                 token={this.state.token}                
                 errors={this.state.errors}
+                clearErrorSignLog={this.clearErrorSignLog}
                 cancelSignLog={this.cancelSignLog}
                 />)}
               // component={Signup} 
@@ -437,6 +449,7 @@ class App extends React.Component {
                 loginUser={this.loginUser}
                 token={this.state.token}                
                 errors={this.state.errors}
+                clearErrorSignLog={this.clearErrorSignLog}
                 cancelSignLog={this.cancelSignLog}
                 />)}
             // component={Login} 

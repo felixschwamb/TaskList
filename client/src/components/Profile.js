@@ -31,7 +31,23 @@ export class Profile extends Component {
         const email = this.props.user.email
 
         this.setState({ name, email })
+
+        // Prevent that error message is shown when Login-screen is loaded
+        // if this.props.erros contains errors these are cleared because the login process starts new  
+        if (this.props.errors !== '') {
+            this.props.clearErrorSignLog()
+            console.log('errors are cleared')
+        } 
       };
+
+
+    // Update of component, when this.props.errors changes
+    // due to this update the error message is shown
+    componentDidUpdate = (prevProps) => {
+        if (this.props.errors !== prevProps.errors) {
+            console.log('there was a change! Current state: ', this.props.errors)
+        }
+    }
 
     openPasswChange = () => {
         this.setState({ passwordChangeActive: true, passwChangeSuccess: false })
@@ -46,6 +62,9 @@ export class Profile extends Component {
         this.setState({
             [e.target.name]: e.target.value
         }, () => this.formValidation())
+
+        // errors are cleared as soon as user changes input
+        this.props.clearErrorSignLog()
     }
 
     openProfileChange = () => {
