@@ -1,4 +1,6 @@
 const express = require('express')
+const multer = require('multer')
+const sharp = require('sharp')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
 const router = new express.Router()
@@ -77,11 +79,9 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 
 
 // // endpoint to fetch the user profile
-//     // currently not needed, user information is loaded, when 'Home' is loaded
-
-// router.get('/users/me', auth, async (req, res) => {
-//     res.send(req.user)
-// })
+router.get('/users/me', auth, async (req, res) => {
+    res.send(req.user)
+})
 
 //--------
 
@@ -147,6 +147,73 @@ router.delete('/users/me', auth, async (req, res) => {
         res.send(req.user)
     } catch(e) {
         res.status(500).send()
+    }
+})
+
+// uploading a profile picture - middleware (multer)
+const upload = multer({
+    // dest: 'avatars',
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+
+            return cb(new Error('Please upload an Image'))
+        }
+
+        cb(undefined, true)
+    }
+})
+
+
+// endpoint to upload an avatar-picture
+router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize(100, 100).png().toBuffer()
+    req.user.avatar = buffer
+    // req.user.avatar = req.file.buffer
+    req.user.avatarAvailable = true 
+    console.log('req.file.buffer: ', req.file.buffer)
+    console.log('constBuffer: ', buffer)
+    // console.log('body: ', req.body)
+    // console.log('avatar: ', req.user.avatar)
+    // console.log('user: ', req.user)
+
+
+    await req.user.save()
+    res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
+
+// endpoint to delete the avatar-picture
+router.delete('/users/me/avatar', auth, async (req, res) => {
+    req.user.avatar = undefined
+    req.user.avatarAvailable = false
+
+    await req.user.save()
+    res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
+
+// fetching an avatar-picture
+router.get('/users/:id/avatar', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+
+        if (!user || !user.avatar) {
+            throw new Error()
+        }
+
+        // setup of response-header
+        res.set('Content-Type', 'image/png')
+
+        res.send(user.avatar)
+    } catch (e) {
+        res.status(404).send()
     }
 })
 

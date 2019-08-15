@@ -7,9 +7,6 @@ import { faSquare } from '@fortawesome/free-regular-svg-icons'
 
 export class TaskItemContent extends Component {
 
-  onClickItem = () => {
-    console.log('task id: ', this.props.task._id)
-  }
   render() {
 
     let checkIcon;
@@ -31,11 +28,10 @@ export class TaskItemContent extends Component {
     }
 
     return (
-      <div className="taskContent">
+      <React.Fragment>
         <div className="checkIconContainer">{checkIcon}</div>
-
         <span className="desc">{this.props.task.title}</span>
-        <div className="edDelButtons">
+        <div className="edDelButtons positionRight">
           <FontAwesomeIcon 
             icon={faPen} 
             className="clickableItem"
@@ -45,10 +41,9 @@ export class TaskItemContent extends Component {
             icon={faTrashAlt}
             className="clickableItem"
             onClick={this.props.deleteTask.bind(this, this.props.task._id)}
-            //onClick={this.onClickItem}
           />
         </div>
-      </div>
+      </React.Fragment>
     );
   };
 };

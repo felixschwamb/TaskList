@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 import ProfileUpdateForm from './ProfileUpdateForm';
 import ErrorMessage from './ErrorMessage';
-
+import ProfilePicture from './ProfilePicture';
 
 
 export class Profile extends Component {
@@ -37,7 +38,7 @@ export class Profile extends Component {
         if (this.props.errors !== '') {
             this.props.clearErrorSignLog()
             console.log('errors are cleared')
-        } 
+        }
       };
 
 
@@ -106,15 +107,35 @@ export class Profile extends Component {
 
     savePasswChange = async (e) => {
         e.preventDefault()
-        console.log('new password: ', this.state.password)
         await this.props.updatePassword(this.props.user.email, this.state.oldPassword, this.state.password)
         console.log('errors: ', this.props.errors)
         if (this.props.errors.length === 0) {
             this.setState({ passwordChangeActive: false, passwChangeSuccess: true })
         }
     }
+
+
+    onChangeFile = (e) => {
+        const file = e.target.files[0]
+        console.log('input files: ', file)
+        const data = new FormData()
+        data.append('avatar', file)
+        this.props.addPicture(data)
+    }
+
     
     render() {
+        let deleteAvatar
+        if (this.props.user.avatarAvailable) {
+            deleteAvatar = (
+                <FontAwesomeIcon
+                    icon={faTrashAlt}
+                    className="clickableItem"
+                    onClick={this.props.deletePicture}
+                />
+            )
+        }
+
 
         let profileChangeForm
         if (!this.state.profileChangeActive) {
@@ -126,21 +147,18 @@ export class Profile extends Component {
                             onClick={this.openProfileChange} 
                         />
                     </div>
+
                     <div className="profileInfoItemContainer">
                         <div className="profileInfoItemName">
                             <p>Name: </p>
                         </div>
-                        <div className="profileInfoItemContent">
                             <p>{this.state.name}</p>
-                        </div>
                     </div>
                     <div className="profileInfoItemContainer">
                         <div className="profileInfoItemName">
                             <p>Email: </p>
                         </div>
-                        <div className="profileInfoItemContent">
                             <p>{this.state.email}</p>
-                        </div>
                     </div>
                 </div>
             )
@@ -148,12 +166,14 @@ export class Profile extends Component {
         } else {
             profileChangeForm = (
                 <ProfileUpdateForm
+                    profilePicture={this.profilePicture}
                     user={this.props.user}
                     name={this.state.name}
                     email={this.state.email}
                     updateProfile={this.props.updateProfile}
                     showProfileChange={this.showProfileChange}
                     closeProfileChange={this.closeProfileChange}
+                    addPicture={this.props.addPicture}
                 />
             )
         }
@@ -268,15 +288,37 @@ export class Profile extends Component {
 
         
         return (
-            <div>
-                <div>
-                    <p>Your profile information:</p>
-                    
-                    {profileChangeForm}
+            <div className="pageContentContainer">
+                <p>Your profile information:</p>
 
-                        <div className="passwordChangeCont">
-                            {passwChangeForm}
-                        </div>
+                <div className="profileInfoItemContainer profilePicture">
+                    <div className="profileInfoItemName">
+                        <p>Profile picture: </p>
+                    </div>
+                        
+                    <ProfilePicture 
+                        user={this.props.user}
+                    /> 
+
+                    <div className="edDelButtons">
+                        <label>
+                            <FontAwesomeIcon 
+                                icon={faPen} 
+                                className="clickableItem"
+                            />
+                            <form>
+                                <input type="file" name="avatar" className="selectFile" onChange={this.onChangeFile}/>
+                            </form>
+                        </label>
+                        
+                        {deleteAvatar}
+                    </div>
+                </div>
+
+                {profileChangeForm}
+
+                <div className="passwordChangeCont">
+                    {passwChangeForm}
                 </div>
             </div>
         )

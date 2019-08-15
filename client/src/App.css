@@ -57,23 +57,14 @@ h1 {
 }
 
 .taskItem{
+  position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  /* justify-content: space-between; */
   align-items: center;
   padding: 15px;
   border-bottom: 3px solid #80cbc4;
   /* width: 700px; */
-  transition-duration: 0.3s;
-}
-
-.taskContent {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  /*justify-content: space-between;*/
-  align-items: center;
-  width: 700px;
   transition-duration: 0.3s;
 }
 
@@ -93,13 +84,16 @@ h1 {
 }
 
 .edDelButtons {
-  position: absolute;
-  right: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 30px;
   width: 55px;
+}
+
+.positionRight {
+  position: absolute;
+  right: 15px;
 }
 
 .savCanButtons {
@@ -346,15 +340,27 @@ input {
 .profileInfoItemContainer{
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: top;
   margin: 10px 0;
   height: 35px;
+}
+
+.profilePicture{
+  height: 100px;
+}
+
+.changeProfilePicture{
+  margin-left: 20px;
+}
+
+.selectFile{
+  display: none;
 }
 
 .profileInfoItemName{
   display: flex;
   align-items: center;
-  width: 100px;
+  width: 150px;
 }
 
 .passwordChangeCont{
@@ -440,7 +446,7 @@ input {
 
 
 /* ---------------------------------------- */
-/* FFilterBar: Task number and filter */
+/* FilterBar: Task number and filter */
 
 .filterBarContainer {
   display: flex;
@@ -472,6 +478,18 @@ input {
   align-items: center;
   width: 50%;
 }
+/* ---------------------------------------- */
+
+
+/* ---------------------------------------- */
+/* FFilterBar: Task number and filter */
+
+.picture {
+  height: 100px;
+  width: 100px;
+  margin-right: 15px;
+}
+/* ---------------------------------------- */
 
 
 

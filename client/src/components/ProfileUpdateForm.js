@@ -2,15 +2,14 @@
     import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
     import { faCheck } from '@fortawesome/free-solid-svg-icons'
     import { faTimes } from '@fortawesome/free-solid-svg-icons'
-
-
+    
     
     export class ProfileUpdateForm extends Component {
         constructor() {
             super()
             this.state = {
               name: '',
-              email: ''
+              email: '',
             }
           }
 
@@ -33,9 +32,13 @@
             this.props.showProfileChange(name, email)
         }
 
+
         render() {
             return (
                 <div className="profileInfoContainer">
+
+                    
+
                     <div className="profileIconSavCanContainer">
                         <div className="profileIconContainer">
                             <FontAwesomeIcon icon={faCheck} 
@@ -52,7 +55,6 @@
                                 />
                         </div>
                     </div>
-
 
                     <div className="profileInfoItemContainer">
                         <div className="profileInfoItemName">

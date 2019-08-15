@@ -79,6 +79,7 @@ class App extends React.Component {
     let response = await fetch("/users/login", options);
     console.log("post-request: ", response);
     let login = await response.json();
+    // console.log('login user:', login.user)
 
     // If email or password are not entered correctly an error occures, which is saved in error state
     if (login === "Unable to login") {
@@ -87,7 +88,7 @@ class App extends React.Component {
       
       // if no error occured, save user in state and save flag that registration/login was succesfull in state
     } else {
-        this.setState({ user: login.user, token: login.token, errors: '' });
+        this.setState({ user: login.user, token: login.token, errors: '' }, () => console.log('user: ', this.state.user));
       }
   };
 
@@ -119,23 +120,23 @@ class App extends React.Component {
     this.setState({ user: logout, token: '' });
   }
 
-  //currently not needed, user data is loaded, when 'Home' is loaded
 
-  // showProfile = async () => {
-  //   const bearer = 'Bearer ' + this.state.token
-  //   const options = {
-  //     method: "GET",
-  //     headers: {
-  //       "Authorization": bearer,
-  //       // "Content-Type": "application/json"
-  //     }
-  //   };
+  showProfile = async () => {
+    const bearer = 'Bearer ' + this.state.token
+    const options = {
+      method: "GET",
+      headers: {
+        "Authorization": bearer,
+        // "Content-Type": "application/json"
+      }
+    };
 
-  //   let response = await fetch("/users/me", options);
-  //   console.log("get-request: ", response);
-  //   let userProfile = await response.json();
-  //   this.setState({ userProfile }, () => {console.log('user profile: ', userProfile, 'user: ', this.state.user)})
-  // }
+    let response = await fetch("/users/me", options);
+    console.log("get-request: ", response);
+    let userProfile = await response.json();
+    this.setState({ user: userProfile }, () => console.log('user: ', this.state.user))
+  }
+
 
   updatePassword = async (email, oldPassword, password) => {
     const data = {email, oldPassword, password}
@@ -209,6 +210,42 @@ class App extends React.Component {
   
   cancelPasswordUpdate = () => {
     this.setState({ errors: '' });
+  }
+
+
+  addPicture = async data => {
+    const bearer = 'Bearer ' + this.state.token
+    const options = {
+      method: "POST",
+      headers: {
+        "Authorization": bearer,
+      },
+      body: data
+    };
+
+    let response = await fetch("/users/me/avatar", options);
+    console.log("post-request: ", response);
+    
+    // if res.send(req.user) is provided in the endpoint this code delivers a Blob
+      // let input = await response.blob();
+      // console.log('input: ', input)
+
+    this.setState({ user: {...this.state.user, avatarAvailable: true}})
+  }
+
+  deletePicture = async () => {
+    const bearer = 'Bearer ' + this.state.token
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Authorization": bearer,
+      },
+    };
+
+    let response = await fetch("/users/me/avatar", options);
+    console.log("post-request: ", response);
+
+    this.setState({ user: {...this.state.user, avatarAvailable: false}})
   }
 
   /* ----------------------------------------------------- */
@@ -424,13 +461,15 @@ class App extends React.Component {
             />
             <Route path="/profile" 
               render={(routeProps) => (<Profile {...routeProps} 
-                // showProfile={this.showProfile}
+                showProfile={this.showProfile}
                 user={this.state.user}
                 updateProfile={this.updateProfile}
                 updatePassword={this.updatePassword}
                 errors={this.state.errors}
                 clearErrorSignLog={this.clearErrorSignLog}
                 cancelPasswordUpdate={this.cancelPasswordUpdate}
+                addPicture={this.addPicture}
+                deletePicture={this.deletePicture}
                 />)}
             // component={Profile} 
             />
