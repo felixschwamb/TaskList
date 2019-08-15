@@ -1,5 +1,4 @@
 import React from 'react';
-import Greeting from './Greeting';
 import FilterBar from './FilterBar';
 import TaskList from './TaskList';
 import PaginationBar from './PaginationBar';
@@ -42,9 +41,6 @@ class Home extends React.Component {
   render() {
     return (
       <div className="pageContentContainer">
-        <Greeting
-          userName={this.props.user.name}  
-        />
         <FilterBar
           totalNumTasks={this.props.totalNumTasks}
           numCompletedTasks={this.props.numCompletedTasks} 

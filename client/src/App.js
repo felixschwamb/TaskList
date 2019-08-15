@@ -434,7 +434,8 @@ class App extends React.Component {
       <BrowserRouter>
         <div>
           <Navigation
-            token={this.state.token}                
+            token={this.state.token}
+            user={this.state.user}
           />
           <Switch>
             <Route path="/" 

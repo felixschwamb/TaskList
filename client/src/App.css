@@ -23,27 +23,49 @@ h1 {
   margin: 10px 0;
 }
 
+
 /* Container for signup- and login-elements */
 .navBar {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-top: 10px;
+  /* border: 1px solid black; */
+}
+
+.headerNavBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .navBarList {
+  position: relative;
   display: flex;
   flex-direction: row;
   list-style: none;
   justify-content: flex-end;
   align-items: center;
+  /* border: 1px solid black; */
+}
 
+.navBarListDropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .navBarItem {
   margin: 10px 20px;
-  color: red;
 }
+
+.navBarItemDropdown {
+  margin: 10px 5px;
+}
+
+
 /* ---------------------------------------- */
 
 .pageContentContainer {
@@ -289,7 +311,12 @@ input {
 /* Container for greeting */
 
 .greetingContainer {
-  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 5px;
+  height: 50px;
+  /* border: 1px solid black; */
+
 }
 /* ---------------------------------------- */
 
@@ -482,14 +509,49 @@ input {
 
 
 /* ---------------------------------------- */
-/* FFilterBar: Task number and filter */
+/* Profile picture in profile and in header */
 
 .picture {
   height: 100px;
   width: 100px;
   margin-right: 15px;
 }
+
+.pictureHeaderContainer {
+  /* position: absolute;
+  right: 0px; */
+  display: flex;
+  align-items: center;
+}
+
+.pictureHeader {
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+}
+
 /* ---------------------------------------- */
+
+
+/* ---------------------------------------- */
+/* Logout */
+
+.dropdown {
+  position: relative;
+  /* display: inline-block; */
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+
+/* ---------------------------------------- */
+
 
 
 
