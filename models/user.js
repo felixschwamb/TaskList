@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     name: {                                             
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        maxlength: 50
     },
     email: {
         type: String,
@@ -16,6 +17,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         lowercase: true,
+        maxlength: 100,
         validate(value) {
             if (!validator.isEmail(value)) {
                 throw new Error('Email is invalid')
@@ -25,6 +27,7 @@ const userSchema = new mongoose.Schema({
     age: {
         type: Number,
         default: 0,
+        maxlength: 3,
         validate(value) {
             if (value < 0) {
                 throw new Error('Age must be a positive number')
@@ -35,6 +38,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        // restriction of password length cannot be done here, because this refers to what is saved on the user and the hash value has a length > 20
+        // maxlength: 20,
         validate(value) {
             if (value.length <= 6) {
                 throw new Error('Password must have more than six characters!')
