@@ -1,5 +1,4 @@
 const express = require("express");
-// const Task = require("./models/task");
 
 require("./db/mongoose");
 
@@ -7,10 +6,12 @@ const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 
 const app = express()
-const port = 5000
+const port = process.env.PORT
+
 
 // Necessary for POST-request
 app.use(express.json())
+
 
 app.use(userRouter)
 app.use(taskRouter)

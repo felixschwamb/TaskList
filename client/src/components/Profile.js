@@ -130,7 +130,7 @@ export class Profile extends Component {
             deleteAvatar = (
                 <FontAwesomeIcon
                     icon={faTrashAlt}
-                    className="clickableItem"
+                    className="profileIcon edAvatarIcon"
                     onClick={this.props.deletePicture}
                 />
             )
@@ -291,20 +291,13 @@ export class Profile extends Component {
             <div className="pageContentContainer">
                 <p>Your profile information:</p>
 
-                <div className="profileInfoItemContainer profilePicture">
-                    <div className="profileInfoItemName">
-                        <p>Profile picture: </p>
-                    </div>
-                        
-                    <ProfilePicture 
-                        user={this.props.user}
-                    /> 
-
-                    <div className="edDelButtons">
+                <div className="profileInfoContainer">
+                <div className="profileIconContainer">  
+                    <div className="two-el-cont">
                         <label>
                             <FontAwesomeIcon 
                                 icon={faPen} 
-                                className="clickableItem"
+                                className="profileIcon edAvatarIcon"
                             />
                             <form>
                                 <input type="file" name="avatar" className="selectFile" onChange={this.onChangeFile}/>
@@ -313,6 +306,21 @@ export class Profile extends Component {
                         
                         {deleteAvatar}
                     </div>
+                </div>
+
+                <div className="profileInfoItemContainer profilePicture">
+
+                    <div className="profileInfoItemName">
+                        <p>Profile picture: </p>
+                    </div>
+                        
+                    <ProfilePicture 
+                        user={this.props.user}
+                    /> 
+
+                
+
+                </div>
                 </div>
 
                 {profileChangeForm}

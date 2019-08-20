@@ -4,16 +4,6 @@ const auth = require('../middleware/auth')
 const router = new express.Router() 
 
 
-// router.get("/api/tasks", async (req, res) => {
-//     const tasks = await Task.find({});
-  
-//     try {
-//       res.json({ tasks });
-//     } catch (e) {
-//       res.status(500).send();
-//     }
-//   });
-
 // endpoint for fetching all tasks of a specific user
 router.get('/tasks', auth, async (req, res) => {
 
@@ -103,7 +93,6 @@ router.patch("/api/update-task/:id", async (req, res) => {
 // endpoint for deleting a task by ID and owner
 router.delete('/api/delete-task/:id', auth, async (req, res) => {
       console.log('delete-request received')
-      // console.log(req.params)
       try {
         const task = await Task.findOneAndDelete({ _id: req.params.id, owner: req.user._id })
         

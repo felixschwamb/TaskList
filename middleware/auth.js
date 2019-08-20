@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
             // 'req.header' to access incoming headers, provide name of header that should be accessed
             // 'replace' to remove 'Bearer' in front of the token
             // if there is no Authorization-header 'token' is undefined, and replace throws an error, but there is already a catch-block in place                   
-        const decoded = jwt.verify(token, 'qwertzuiop')
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
             // verify if the token is valid, by using verify() with token to be verified as first argument end secret as second argument (defined in User model)
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
             // '_id' is stored on decoded, because it was used for creating the token with sign(). verify() gives back _id, iat, exp

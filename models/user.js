@@ -16,12 +16,11 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         lowercase: true,
-        // commented out to facilitate development process
-        // validate(value) {
-        //     if (!validator.isEmail(value)) {
-        //         throw new Error('Email is invalid')
-        //     }
-        // }
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error('Email is invalid')
+            }
+        }
     },
     age: {
         type: Number,
@@ -36,14 +35,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        // commented out to facilitate development process
-        // validate(value) {
-        //     if (value.length <= 6) {
-        //         throw new Error('Password must have more than six characters!')
-        //     } else if (value.toLowerCase().includes('password')) {
-        //         throw new Error('Password cannot contain the word password')
-        //     }
-        // }
+        validate(value) {
+            if (value.length <= 6) {
+                throw new Error('Password must have more than six characters!')
+            } else if (value.toLowerCase().includes('password')) {
+                throw new Error('Password cannot contain the word password')
+            }
+        }
     },
     tokens: [{
         token: {
@@ -92,7 +90,7 @@ userSchema.methods.toJSON = function () {
 userSchema.methods.generateAuthToken = async function () {                          // static methods are accessible on the model, methods are accessable on the instances
     const user = this
 
-    const token = jwt.sign({_id: user._id.toString()}, 'qwertzuiop')                 
+    const token = jwt.sign({_id: user._id.toString()}, process.env.JWT_SECRET)                 
     
     user.tokens = user.tokens.concat({ token })                                     
     await user.save()
@@ -154,8 +152,6 @@ userSchema.pre('remove', async function (next) {
     next()
 })
 
-
 const User = mongoose.model('User', userSchema)
-
 
 module.exports = User

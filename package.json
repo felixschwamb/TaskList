@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js",
+    "server": "env-cmd -f ./config/dev.env nodemon server.js",
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -18,11 +18,13 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.5",
     "multer": "^1.4.2",
+    "nocache": "^2.1.0",
     "react-router-dom": "^5.0.1",
     "sharp": "^0.23.0",
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "env-cmd": "^9.0.3",
     "nodemon": "^1.19.1"
   }
 }
