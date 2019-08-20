@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from './errors/ErrorMessage';
 
 
 export class Signup extends Component {

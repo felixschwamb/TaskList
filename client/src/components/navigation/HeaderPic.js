@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Dropdown from './Dropdown';
 
-import placeholderPic from '../images/profilePlaceholder.png'
+import placeholderPic from '../../images/profilePlaceholder.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 

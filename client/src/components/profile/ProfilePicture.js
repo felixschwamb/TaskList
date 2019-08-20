@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import placeholderPic from '../images/profilePlaceholder.png'
+import placeholderPic from '../../images/profilePlaceholder.png'
 
 
 export class ProfilePicture extends Component {

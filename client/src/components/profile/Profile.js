@@ -5,7 +5,7 @@ import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 import ProfileUpdateForm from './ProfileUpdateForm';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '../errors/ErrorMessage';
 import ProfilePicture from './ProfilePicture';
 
 

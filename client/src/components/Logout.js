@@ -39,9 +39,6 @@ export class Logout extends Component {
                             </button>
                         </div>
                     </div>
-                    {/* <div className="signLogErrorMsgContainer">
-                        {errorMessage}
-                    </div> */}
                 </div>    
             </div>
         )

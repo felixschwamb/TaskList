@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Navigation from './components/navigation/Navigation';
 import Start from './components/Start';
-import Home from './components/Home'
-import Profile from './components/Profile';
+import Home from './components/home/Home'
+import Profile from './components/profile/Profile';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import Error from './components/Error';
-import Navigation from './components/Navigation';
+import Error from './components/errors/Error';
 
 
 class App extends React.Component {

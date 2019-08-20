@@ -1,9 +1,9 @@
 import React from 'react';
-import FilterBar from './FilterBar';
-import TaskList from './TaskList';
-import PaginationBar from './PaginationBar';
+import FilterBar from './filter/FilterBar';
+import TaskList from './tasks/TaskList';
+import PaginationBar from './pagination/PaginationBar';
 import AddTask from './AddTask';
-import '../App.css';
+import '../../App.css';
 
 class Home extends React.Component {
   constructor() {

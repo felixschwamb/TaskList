@@ -3,8 +3,6 @@ import TaskItemContent from './TaskItemContent';
 import UpdateForm from './UpdateForm';
 
 
-
-
 export class TaskItem extends Component {
 
   constructor() {

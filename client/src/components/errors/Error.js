@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import Header from './Header';
 
 
 export class Error extends Component {
     render() {
         return (
-            <div>
-                <Header />
+            <div className="pageContentContainer">
                 <div>
                     <p>This page is not available.</p>
                 </div>
