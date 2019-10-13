@@ -1,4 +1,4 @@
-# Task Manager
+# TaskList
 In this project I built a task manager. To use the task manager the user needs to create an account, so all tasks are user specific and a task can only be viewed or modified by the user who created it.
 The tasks are stored in a database using MongoDB, so they are persisted even if the user logs out and starts a new session.
 
