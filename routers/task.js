@@ -51,7 +51,7 @@ router.get('/tasks', auth, async (req, res) => {
   
   
 router.post("/api/post-task", auth, async (req, res) => {
-    console.log("post-request received");
+    // console.log("post-request received");
 
     const task = new Task({
       ...req.body,
@@ -92,7 +92,7 @@ router.patch("/api/update-task/:id", async (req, res) => {
 
 // endpoint for deleting a task by ID and owner
 router.delete('/api/delete-task/:id', auth, async (req, res) => {
-      console.log('delete-request received')
+      // console.log('delete-request received')
       try {
         const task = await Task.findOneAndDelete({ _id: req.params.id, owner: req.user._id })
         

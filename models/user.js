@@ -76,6 +76,7 @@ userSchema.virtual('tasks', {
         // where local data is stored, relationship between User and Task
     foreignField: 'owner'
         // name of the field on the task
+        // -> find tasks where '_id' (localField) is equal to 'owner' (foreignField)
 })
 
 userSchema.methods.toJSON = function () {
@@ -84,6 +85,7 @@ userSchema.methods.toJSON = function () {
     const userObject = user.toObject()
         // toObject() provided by Mongoogse, gives just raw user data
 
+        // the 'delete' operator deletes a property from an object
     delete userObject.password
     delete userObject.tokens
     delete userObject.avatar

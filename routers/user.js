@@ -8,22 +8,6 @@ const router = new express.Router()
 
 // --------------------USERS-----------------------
 
-// alternative solution to do validation of input in registration form
-// onChange in input form there is an http request to validate the input
-
-// router.post('/user/check', async (req, res) => {    
-//     const user = new User(req.body)
-//     console.log(user)
-    
-//     try {
-//         await user.validate()
-//         res.status(200).send(user)
-//     } catch(e) {
-//         res.status(400).send(e)
-//     } 
-// })
-
-
 // endpoint for creating a new instance
     // sign up of user
 router.post('/users', async (req, res) => {    
@@ -173,13 +157,7 @@ router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) 
     req.user.avatar = buffer
     // req.user.avatar = req.file.buffer
     req.user.avatarAvailable = true 
-    console.log('req.file.buffer: ', req.file.buffer)
-    console.log('constBuffer: ', buffer)
-    // console.log('body: ', req.body)
-    // console.log('avatar: ', req.user.avatar)
-    // console.log('user: ', req.user)
-
-
+    
     await req.user.save()
     res.send()
 }, (error, req, res, next) => {

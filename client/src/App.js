@@ -40,9 +40,8 @@ class App extends React.Component {
     };
   
     let response = await fetch("/users", options);
-    console.log("post-request: ", response);
+    // console.log("post-request: ", response);
     let registeredUser = await response.json();
-    // console.log('registeredUser: ', registeredUser)
 
     // If an error occured, create an array with all error messages, and save it in error state
     if (registeredUser.errors !== undefined) {
@@ -77,9 +76,8 @@ class App extends React.Component {
     };
   
     let response = await fetch("/users/login", options);
-    console.log("post-request: ", response);
+    // console.log("post-request: ", response);
     let login = await response.json();
-    // console.log('login user:', login.user)
 
     // If email or password are not entered correctly an error occures, which is saved in error state
     if (login === "Unable to login") {
@@ -88,7 +86,8 @@ class App extends React.Component {
       
       // if no error occured, save user in state and save flag that registration/login was succesfull in state
     } else {
-        this.setState({ user: login.user, token: login.token, errors: '' }, () => console.log('user: ', this.state.user));
+        // this.setState({ user: login.user, token: login.token, errors: '' }, () => console.log('user: ', this.state.user));
+        this.setState({ user: login.user, token: login.token, errors: '' });
       }
   };
 
@@ -98,7 +97,6 @@ class App extends React.Component {
   clearErrorSignLog = () => {
     if (this.state.errors !== '') {
       this.setState({ errors: '' })
-      console.log('error is no empty string!', this.state.errors)
     } 
   }
 
@@ -114,9 +112,8 @@ class App extends React.Component {
     };
 
     let response = await fetch("/users/logout", options);
-    console.log("post-request: ", response);
+    // console.log("post-request: ", response);
     let logout = await response.json();
-    // console.log('logout: ', logout)
     this.setState({ user: logout, token: '' });
   }
 
@@ -132,9 +129,9 @@ class App extends React.Component {
     };
 
     let response = await fetch("/users/me", options);
-    console.log("get-request: ", response);
+    // console.log("get-request: ", response);
     let userProfile = await response.json();
-    this.setState({ user: userProfile }, () => console.log('user: ', this.state.user))
+    this.setState({ user: userProfile })
   }
 
 
@@ -152,9 +149,8 @@ class App extends React.Component {
     };
 
     let response = await fetch("/users/me/password", options);
-    console.log("patch-request: ", response);
+    // console.log("patch-request: ", response);
     let updatePassword = await response.json();
-    // console.log('user: ', updatePassword)
 
     // If an error occured save it in error state
     if (updatePassword === 'Unable to change password') {
@@ -182,12 +178,10 @@ class App extends React.Component {
     };
 
     let response = await fetch("/users/me/profile", options);
-    console.log("patch-request: ", response);
+    // console.log("patch-request: ", response);
     let updateProfile = await response.json();
-    // console.log('profile: ', updateProfile)
-    // console.log('this.state.user: ', this.state.user)
 
-    this.setState({ user: updateProfile}, () => console.log('updated user state: ', this.state.user))
+    this.setState({ user: updateProfile})
     // version to use spread-operator and 'name' and 'email' properties that are coming from 'ProfileUpdateForm'-component
     // this.setState({ user: { ...this.state.user, name, email }}, () => console.log('updated user state: ', this.state.user))
 
@@ -223,13 +217,10 @@ class App extends React.Component {
       body: data
     };
 
-    let response = await fetch("/users/me/avatar", options);
-    console.log("post-request: ", response);
+    await fetch("/users/me/avatar", options);
+    // let response = await fetch("/users/me/avatar", options);
+    // console.log("post-request: ", response);
     
-    // if res.send(req.user) is provided in the endpoint this code delivers a Blob
-      // let input = await response.blob();
-      // console.log('input: ', input)
-
     this.setState({ user: {...this.state.user, avatarAvailable: true}})
   }
 
@@ -242,8 +233,9 @@ class App extends React.Component {
       },
     };
 
-    let response = await fetch("/users/me/avatar", options);
-    console.log("post-request: ", response);
+    await fetch("/users/me/avatar", options);
+    // let response = await fetch("/users/me/avatar", options);
+    // console.log("post-request: ", response);
 
     this.setState({ user: {...this.state.user, avatarAvailable: false}})
   }
@@ -268,15 +260,16 @@ class App extends React.Component {
     // let response = await fetch("/tasks", options);
     let response = await fetch(url, options);
 
-    console.log("get-request: ", response);
+    // console.log("get-request: ", response);
     let json = await response.json();
     const totalNumTasks = json.numTasks
     const numCompletedTasks = json.numTasksComp
     const numUncompletedTasks = json.numTasksUncomp
     const tasks = json.tasks;
-    this.setState({ tasks, totalNumTasks, numCompletedTasks, numUncompletedTasks }, () =>
-      console.log("Data loaded from database: ", this.state.tasks, 'and: ', this.state.totalNumTasks)
-    );
+    // this.setState({ tasks, totalNumTasks, numCompletedTasks, numUncompletedTasks }, () =>
+    //   console.log("Data loaded from database: ", this.state.tasks, 'and: ', this.state.totalNumTasks)
+    // );
+    this.setState({ tasks, totalNumTasks, numCompletedTasks, numUncompletedTasks });
   };
 
 
@@ -293,7 +286,7 @@ class App extends React.Component {
     };
 
     let response = await fetch("/api/post-task", options);
-    console.log("post-request: ", response);
+    // console.log("post-request: ", response);
     let postedTask = await response.json();
 
     const newTask = {
@@ -306,9 +299,7 @@ class App extends React.Component {
     const totalNumTasks = this.state.totalNumTasks + 1
     const numUncompletedTasks = this.state.numUncompletedTasks + 1
 
-    this.setState({ tasks: [...this.state.tasks, newTask], totalNumTasks, numUncompletedTasks }, () => {
-      console.log("total tasks: ", this.state.tasks);
-    });
+    this.setState({ tasks: [...this.state.tasks, newTask], totalNumTasks, numUncompletedTasks });
   };
 
 
@@ -325,8 +316,9 @@ class App extends React.Component {
       body: JSON.stringify(data)
     }
 
-    let response = await fetch('/api/update-task/' + id + '', options)
-    console.log('patch-request: ', response)
+    await fetch('/api/update-task/' + id + '', options)
+    // let response = await fetch('/api/update-task/' + id + '', options)
+    // console.log('patch-request: ', response)
   }
 
   checkTask = id => {
@@ -353,9 +345,7 @@ class App extends React.Component {
       let numUncompletedTasks = this.state.numUncompletedTasks -1
 
   
-      this.setState({ tasks: updTasks, numCompletedTasks, numUncompletedTasks }, () =>
-        console.log("new tasks after check: ", updTasks)
-      );
+      this.setState({ tasks: updTasks, numCompletedTasks, numUncompletedTasks });
     };
 
   saveUpdate = (id, title, completed) => {
@@ -390,9 +380,7 @@ class App extends React.Component {
       }
     }
   
-    this.setState({ tasks: updTasks, numCompletedTasks, numUncompletedTasks}, () =>
-      console.log("new tasks after upd: ", updTasks)
-    );
+    this.setState({ tasks: updTasks, numCompletedTasks, numUncompletedTasks});
   };
 
 
@@ -406,8 +394,7 @@ class App extends React.Component {
       }
     };
 
-    let response = await fetch("/api/delete-task/" + id + "", options);
-    console.log("delete-request: ", response);
+    await fetch("/api/delete-task/" + id + "", options);
 
     // Updating on client-side (counter and task-array), when a task is deleted
       // Updating of counter (total, comp, uncomp) on client-side
