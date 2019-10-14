@@ -4,7 +4,8 @@ The tasks are stored in a database using MongoDB, so they are persisted even if 
 
 The motiviation for this project is to practice creation of a web application that is connected to a database, creation of a REST API and building of a web application using React.
 
-<img src="images/image_TaskList.png">
+## Screenshots
+<img src="images/image_TaskList_2.png">
 
 ## Technologies
 * JavaScript
